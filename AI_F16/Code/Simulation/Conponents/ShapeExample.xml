@@ -30,10 +30,9 @@ This code contains trade secrets of Real-Time Innovations, Inc.
             <member name="state" type="double" arrayDimensions="16"/>
         </struct>
         <struct name="RadarType" extensibility="extensible">
-            <member name="color" stringMaxLength="128" type="string" key="true"/>
-            <member name="x" type="double"/>
-            <member name="y" type="double"/>
-            <member name="shapesize" type="double"/>
+            <member name="scan_mode" type="int8"/>
+            <member name="search_mode" type="int8"/>
+            <member name="target_position" type="double" arrayDimensions="3"/>
         </struct>
         <struct name="LaserType" extensibility="extensible">
             <member name="launch_flag" type="boolean"/>
