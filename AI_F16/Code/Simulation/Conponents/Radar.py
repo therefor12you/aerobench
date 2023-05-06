@@ -165,8 +165,8 @@ class Radar:
             self.AxisPos = [base_position[0] + self.max_detected_distance*cos(self.Ele)*sin(self.Azi), base_position[1] + self.max_detected_distance*cos(self.Ele)*cos(self.Azi), base_position[2] + self.max_detected_distance*sin(self.Ele)]
         
         self.radius = self.distance(base_position, self.AxisPos)[0]
-        self.azi_1 = self.Azi-self.filed/2
-        self.azi_2 = self.Azi+self.filed/2
+        self.azi_1 = q_x-self.filed/2
+        self.azi_2 = q_x+self.filed/2
 
         # 发布雷达信息
         self.output.instance.set_dictionary({"scan_mode":self.ScanMode, "search_mode":self.SearchMode, "radius":self.radius, 
