@@ -173,75 +173,75 @@ class Radar:
                                              "azi_angle1":self.azi_1, "azi_angle2":self.azi_2, "target_position":self.TarInfo})
         self.output.write()
 
-class UAV:
-    def __init__(self, position, speed):
-        self.position = position   
-        self.speed = speed   
+# class UAV:
+#     def __init__(self, position, speed):
+#         self.position = position   
+#         self.speed = speed   
 
-if __name__ == '__main__':
-    # 仿真步长[s]
-    step = 0.05
-    # 仿真时长[s]
-    T = 50
-    # 仿真时间[s]
-    t = 0
+# if __name__ == '__main__':
+#     # 仿真步长[s]
+#     step = 0.05
+#     # 仿真时长[s]
+#     T = 50
+#     # 仿真时间[s]
+#     t = 0
 
-    # 载机坐标
-    my_position = np.array([0, 0, 0])
-    # 目标坐标
-    target_position = np.array([15000, 20000, 5000])
+#     # 载机坐标
+#     my_position = np.array([0, 0, 0])
+#     # 目标坐标
+#     target_position = np.array([15000, 20000, 5000])
 
-    my_aircraft = UAV(my_position, 0)
-    target = UAV(target_position, [1800, 2800, 180])
+#     my_aircraft = UAV(my_position, 0)
+#     target = UAV(target_position, [1800, 2800, 180])
 
-    # 雷达初始化
-    radar = Radar()
+#     # 雷达初始化
+#     radar = Radar()
 
-    # 雷达波束坐标记录
-    radar_position = radar.AxisPos
-    # 目标坐标记录
-    target_position = target_position
-    # 雷达方位角
-    radar_azi= radar.Azi
-    # 雷达俯仰角
-    radar_ele = radar.Ele
+#     # 雷达波束坐标记录
+#     radar_position = radar.AxisPos
+#     # 目标坐标记录
+#     target_position = target_position
+#     # 雷达方位角
+#     radar_azi= radar.Azi
+#     # 雷达俯仰角
+#     radar_ele = radar.Ele
 
-    # 三维雷达和目标
-    scene = canvas()
-    radar_beam = cone(canvas=scene, pos=vector(0, radar.max_detected_distance, 0), axis=vector(0, -radar.max_detected_distance, 0), radius=radar.max_detected_distance*tan(radar.filed))
-    target_obj = sphere(canvas=scene, pos=vector(target_position[0], target_position[1], target_position[2]), radius=1000, color=color.red)
+#     # 三维雷达和目标
+#     scene = canvas()
+#     radar_beam = cone(canvas=scene, pos=vector(0, radar.max_detected_distance, 0), axis=vector(0, -radar.max_detected_distance, 0), radius=radar.max_detected_distance*tan(radar.filed))
+#     target_obj = sphere(canvas=scene, pos=vector(target_position[0], target_position[1], target_position[2]), radius=1000, color=color.red)
 
-    # 开始仿真
-    while t<T:
-        # 目标运动变化
-        target.position[0] = target.position[0] - target.speed[0]*step
-        target.position[1] = target.position[1] - target.speed[1]*step
-        target.position[2] = target.position[2] - target.speed[2]*step
+#     # 开始仿真
+#     while t<T:
+#         # 目标运动变化
+#         target.position[0] = target.position[0] - target.speed[0]*step
+#         target.position[1] = target.position[1] - target.speed[1]*step
+#         target.position[2] = target.position[2] - target.speed[2]*step
 
 
-        # 雷达扫描
-        radar.mode(my_aircraft, target)
-        radar.SightAngle(my_aircraft, target)
-        radar.scan(t+step)
+#         # 雷达扫描
+#         radar.mode(my_aircraft, target)
+#         radar.SightAngle(my_aircraft, target)
+#         radar.scan(t+step)
 
-        # 时间更新
-        t += step
+#         # 时间更新
+#         t += step
 
-        # 记录坐标
-        radar_position = np.vstack((radar_position, radar.AxisPos))
-        target_position = np.vstack((target_position, target.position))
-        radar_azi = np.vstack((radar_azi, radar.Azi))
-        radar_ele = np.vstack((radar_ele, radar.Ele))
+#         # 记录坐标
+#         radar_position = np.vstack((radar_position, radar.AxisPos))
+#         target_position = np.vstack((target_position, target.position))
+#         radar_azi = np.vstack((radar_azi, radar.Azi))
+#         radar_ele = np.vstack((radar_ele, radar.Ele))
     
 
 
-    for rpos, tgt in zip(radar_position, target_position):
+#     for rpos, tgt in zip(radar_position, target_position):
 
-        target_obj.pos = vector(tgt[0], tgt[1], tgt[2])
-        radar_beam.pos = vector(rpos[0], rpos[1], rpos[2])
-        radar_beam.axis = vector(-rpos[0], -rpos[1], -rpos[2])
-        # time.sleep(0.05)
-        sleep(0.05) 
+#         target_obj.pos = vector(tgt[0], tgt[1], tgt[2])
+#         radar_beam.pos = vector(rpos[0], rpos[1], rpos[2])
+#         radar_beam.axis = vector(-rpos[0], -rpos[1], -rpos[2])
+#         # time.sleep(0.05)
+#         sleep(0.05) 
 
 
 

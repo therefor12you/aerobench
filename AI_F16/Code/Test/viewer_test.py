@@ -140,7 +140,7 @@ class ScenarioViewer:
         markers.append(marker_aircraft)
         marker_missile = ax.scatter([], [], marker='x', s=msize*10, zorder=300, color='r')
         markers.append(marker_missile)
-        wedge_radar, = ax.fill([], [], color='p')
+        wedge_radar, = ax.fill([], [], color='b')
         wedges.append(wedge_radar)
 
         # 更新轴的界限，以便在更新曲线时自动调整
