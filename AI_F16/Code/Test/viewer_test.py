@@ -156,6 +156,7 @@ class ScenarioViewer:
 
         # animation function
         def animate(num):
+            ax.clear()
             num *= skip_size
             # t is a parameter
             # x, y values to be plotted
@@ -174,7 +175,7 @@ class ScenarioViewer:
             x = np.append(x, r * np.cos(np.radians(theta)))
             y = np.append(y, r * np.sin(np.radians(theta)))
             wedges[0], = ax.fill(x, y, color='b')
-            ax.clear()
+            
 
             # 导弹轨迹
             x, y = self.missile_position[num]
