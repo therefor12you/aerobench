@@ -173,7 +173,8 @@ class ScenarioViewer:
             r = self.radar_radius[num]
             x = np.append(x, r * np.cos(np.radians(theta)))
             y = np.append(y, r * np.sin(np.radians(theta)))
-            wedges[0], = ax.fill(x, y)
+            wedges[0], = ax.fill(x, y, color='b')
+            wedges[0], = ax.fill([], [], color='b')
 
             # 导弹轨迹
             x, y = self.missile_position[num]

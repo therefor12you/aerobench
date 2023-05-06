@@ -40,7 +40,7 @@ class Radar:
         # 雷达扫描行数，偶数
         self.Hlines = 2
         # 雷达波束张角[°]
-        self.filed = radians(3)
+        self.filed = radians(10)
         
         # 雷达行扫描耗时
         self.azi_time = 2*self.AziRange/self.Vscan
