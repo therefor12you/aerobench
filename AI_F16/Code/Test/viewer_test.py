@@ -140,7 +140,7 @@ class ScenarioViewer:
         markers.append(marker_aircraft)
         marker_missile = ax.scatter([], [], marker='x', s=msize*10, zorder=300, color='r')
         markers.append(marker_missile)
-        wedge_radar, = ax.fill([], [], color='b')
+        # wedge_radar, = ax.fill([], [], color='b')
         
 
         # 更新轴的界限，以便在更新曲线时自动调整
@@ -173,8 +173,7 @@ class ScenarioViewer:
             r = self.radar_radius[num]
             x_list = np.append(x, r * np.cos(theta))
             y_list = np.append(y, r * np.sin(theta))
-            wedge_radar.set_xy(np.vstack(x_list, y_list))
-            wedge_radar.clear()
+            ax.fill(x_list, y_list, color='b')
             
 
             # 导弹轨迹
@@ -199,7 +198,7 @@ class ScenarioViewer:
             thermal_laser_text.set_text('Q = {:.2f} J'.format(sum(self.laser_thermal[:num])))
             v_missile_text.set_text('v_missile = {:.2f} m/s'.format(self.missile_velocity[num]))
 
-            return lines, markers, wedge_radar,
+            return lines, markers,
 
         # setting a title for the plot
         plt.grid()
