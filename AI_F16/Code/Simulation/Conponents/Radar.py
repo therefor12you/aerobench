@@ -3,7 +3,7 @@ from random import random
 import rticonnextdds_connector as rti
 from os import path 
 from math import cos, sin, atan, sqrt, radians
-from vpython import *
+# from vpython import *
 
 # 目前均在雷达坐标系下完成扫描, 需要转换至地面坐标系 
 # 当前实现的是单目标跟踪扫描, 无法实现多目标跟踪
