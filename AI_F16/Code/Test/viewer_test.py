@@ -171,9 +171,9 @@ class ScenarioViewer:
             # 雷达波束扇形
             theta = np.linspace(self.radar_azi[num][0], self.radar_azi[num][1], 100)
             r = self.radar_radius[num]
-            x = np.append(x, r * np.cos(theta))
-            y = np.append(y, r * np.sin(theta))
-            wedge_radar.set_xy(np.array([x.T, y.T]))
+            x_list = np.append(x, r * np.cos(theta))
+            y_list = np.append(y, r * np.sin(theta))
+            wedge_radar.set_xy(np.vstack(x_list, y_list))
             wedge_radar.clear()
             
 
