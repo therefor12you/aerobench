@@ -174,7 +174,7 @@ class ScenarioViewer:
             x = np.append(x, r * np.cos(theta))
             y = np.append(y, r * np.sin(theta))
             wedges[0], = ax.fill(x, y, color='b')
-            ax.fill().clear()
+            wedges[0].clear()
             
 
             # 导弹轨迹
