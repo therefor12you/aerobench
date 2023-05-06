@@ -156,7 +156,7 @@ class ScenarioViewer:
 
         # animation function
         def animate(num):
-            ax.clear()
+            # ax.clear()
             num *= skip_size
             # t is a parameter
             # x, y values to be plotted
