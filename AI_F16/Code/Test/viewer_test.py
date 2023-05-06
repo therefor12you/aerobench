@@ -128,7 +128,7 @@ class ScenarioViewer:
 
         lines = []
         markers = []
-        wedges = []
+        
     
         line_aircraft, = ax.plot([], [], 'b', lw=2)
         lines.append(line_aircraft)
@@ -141,7 +141,7 @@ class ScenarioViewer:
         marker_missile = ax.scatter([], [], marker='x', s=msize*10, zorder=300, color='r')
         markers.append(marker_missile)
         wedge_radar, = ax.fill([], [], color='b')
-        wedges.append(wedge_radar)
+        
 
         # 更新轴的界限，以便在更新曲线时自动调整
         ax.relim()
@@ -173,8 +173,8 @@ class ScenarioViewer:
             r = self.radar_radius[num]
             x = np.append(x, r * np.cos(theta))
             y = np.append(y, r * np.sin(theta))
-            wedges[0], = ax.fill(x, y, color='b')
-            wedges[0].clear()
+            wedge_radar.fill(x,y,color='b')
+            wedge_radar.clear()
             
 
             # 导弹轨迹
