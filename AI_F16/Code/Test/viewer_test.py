@@ -173,7 +173,7 @@ class ScenarioViewer:
             r = self.radar_radius[num]
             x = np.append(x, r * np.cos(theta))
             y = np.append(y, r * np.sin(theta))
-            wedge_radar.fill(x,y,color='b')
+            wedge_radar.set_xy(np.array([x.T, y.T]))
             wedge_radar.clear()
             
 
