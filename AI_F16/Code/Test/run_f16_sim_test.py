@@ -14,7 +14,7 @@ from util import get_state_names, Euler
 import rticonnextdds_connector as rti
 from os import path 
 
-def run_f16_sim(initial_state, tmax, ap, missile, laser, battery, step, extended_states=False, model_str='morelli',
+def run_f16_sim(initial_state, tmax, ap, missile, laser, battery, radar, step, extended_states=False, model_str='morelli',
                 integrator_str='euler', v2_integrators=False):
     
     '''Simulates and analyzes autonomous F-16 maneuvers
@@ -105,6 +105,8 @@ def run_f16_sim(initial_state, tmax, ap, missile, laser, battery, step, extended
     missile_speed_list = [copy.deepcopy(missile.speed)]
     battery_soc_list = [copy.deepcopy(battery.soc)]
     laser_thermal_list = [copy.deepcopy(laser.Q)]
+    radar_radius_list = [copy.deepcopy(radar.radius)]
+    radar_azi_list = [copy.deepcopy([copy.deepcopy(radar.azi_1), copy.deepcopy(radar.azi_2)])]
 
     while integrator.status == 'running':
         integrator.step()
@@ -132,6 +134,11 @@ def run_f16_sim(initial_state, tmax, ap, missile, laser, battery, step, extended
                 missile_pos_list.append(copy.deepcopy(missile.position))
                 missile_speed_list.append(copy.deepcopy(missile.speed))
                 # print(missile_pos_list) 
+
+                # 雷达
+                radar.scan(t)
+                radar_radius_list.append(copy.deepcopy(radar.radius))
+                radar_azi_list.append([copy.deepcopy(radar.azi_1), copy.deepcopy(radar.azi_2)])
 
                 # 高能装备电模型
                 battery.dis_and_charge(t)
@@ -183,6 +190,8 @@ def run_f16_sim(initial_state, tmax, ap, missile, laser, battery, step, extended
     res['missile_pos'] = missile_pos_list
     res['missile_vel'] = missile_speed_list
     res['battery_soc'] = battery_soc_list
+    res['radar_radius'] = radar_radius_list
+    res['radar_azi'] = radar_azi_list
 
     if extended_states:
         res['xd_list'] = xd_list

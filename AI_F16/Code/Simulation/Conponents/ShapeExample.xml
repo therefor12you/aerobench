@@ -32,6 +32,9 @@ This code contains trade secrets of Real-Time Innovations, Inc.
         <struct name="RadarType" extensibility="extensible">
             <member name="scan_mode" type="int8"/>
             <member name="search_mode" type="int8"/>
+            <member name="radius" type="double"/>
+            <member name="azi_angle1" type="double"/>
+            <member name="azi_angle2" type="double"/>
             <member name="target_position" type="double" arrayDimensions="3"/>
         </struct>
         <struct name="LaserType" extensibility="extensible">

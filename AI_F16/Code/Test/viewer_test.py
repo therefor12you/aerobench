@@ -46,9 +46,12 @@ class ScenarioViewer:
         self.aircraft_heading = self.aircraft_states[:,5]
         self.missile_position = self.missile_pos[:,0:2]
         # print(self.missile_position)
+
         self.missile_velocity = res['missile_vel']
         self.laser_thermal = res['laser_thermal']
         self.battery_soc = res['battery_soc']
+        self.radar_radius = res['radar_radius']
+        self.radar_azi = res['radar_azi']
         self.time = res['times']
 
         # self.f16_states = np.array(res_f16['states'])
@@ -125,6 +128,7 @@ class ScenarioViewer:
 
         lines = []
         markers = []
+        wedges = []
     
         line_aircraft, = ax.plot([], [], 'b', lw=2)
         lines.append(line_aircraft)
@@ -136,6 +140,8 @@ class ScenarioViewer:
         markers.append(marker_aircraft)
         marker_missile = ax.scatter([], [], marker='x', s=msize*10, zorder=300, color='r')
         markers.append(marker_missile)
+        wedge_radar, = ax.fill([], [], color='p')
+        wedges.append(wedge_radar)
 
         # 更新轴的界限，以便在更新曲线时自动调整
         ax.relim()
@@ -162,6 +168,13 @@ class ScenarioViewer:
             markers[0].set_offsets(np.c_[[x_data1[-1]], [y_data1[-1]]])
             markers[0].set_paths([self.create_f16_marker(self.aircraft_heading[num])])
             
+            # 雷达波束扇形
+            theta = np.linspace(self.radar_azi[num][0], self.radar_azi[num][1], 100)
+            r = self.radar_radius[num]
+            x = np.append(x, r * np.cos(np.radians(theta)))
+            y = np.append(y, r * np.sin(np.radians(theta)))
+            wedges[0], = ax.fill(x, y)
+
             # 导弹轨迹
             x, y = self.missile_position[num]
             x_data2.append(x)
@@ -176,6 +189,7 @@ class ScenarioViewer:
                 y_data3 = [y_data1[-1], y_data2[-1]]
                 lines[2].set_data(x_data3, y_data3)
 
+        
             # 其他信息
             v_aircraft_text.set_text('v_aircraft = {:.2f} m/s'.format(self.aircraft_velocity[num]))
             soc_aircraft_text.set_text('soc = {:.6f} '.format(self.battery_soc[num]))
@@ -183,7 +197,7 @@ class ScenarioViewer:
             thermal_laser_text.set_text('Q = {:.2f} J'.format(sum(self.laser_thermal[:num])))
             v_missile_text.set_text('v_missile = {:.2f} m/s'.format(self.missile_velocity[num]))
 
-            return lines, markers
+            return lines, markers, wedges,
 
         # setting a title for the plot
         plt.grid()

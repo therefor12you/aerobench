@@ -55,14 +55,18 @@ class Radar:
         # 雷达探测到的目标信息
         self.TarInfo = None
 
+        self.radius = self.max_detected_distance
+        self.azi_1 = self.Azi - self.filed/2
+        self.azi_2 = self.Azi + self.filed/2
+
         # DDS
         self.file_path = path.dirname(path.realpath(__file__))
         self.pub_connector = rti.Connector("MyParticipantLibrary::MyPubParticipant", self.file_path + "\ShapeExample.xml")
         self.sub_connector = rti.Connector("MyParticipantLibrary::MySubParticipant", self.file_path + "\ShapeExample.xml")
 
         self.output = self.pub_connector.get_output("MyPublisher::MyRadarWriter")
-        self.output.instance.set_dictionary({"scan_mode":self.ScanMode, "search_mode":self.SearchMode, "target_position":self.TarInfo})
-        self.output.write()
+        # self.output.instance.set_dictionary({"scan_mode":self.ScanMode, "search_mode":self.SearchMode, "target_position":self.TarInfo})
+        # self.output.write()
 
 
     # 计算目标与本机距离信息
@@ -160,8 +164,13 @@ class Radar:
             # 更新波束轴坐标
             self.AxisPos = [base_position[0] + self.max_detected_distance*cos(self.Ele)*sin(self.Azi), base_position[1] + self.max_detected_distance*cos(self.Ele)*cos(self.Azi), base_position[2] + self.max_detected_distance*sin(self.Ele)]
         
+        self.radius = self.distance(base_position, self.AxisPos)[0]
+        self.azi_1 = self.Azi-self.filed/2
+        self.azi_2 = self.Azi+self.filed/2
+
         # 发布雷达信息
-        self.output.instance.set_dictionary({"scan_mode":self.ScanMode, "search_mode":self.SearchMode, "target_position":self.TarInfo})
+        self.output.instance.set_dictionary({"scan_mode":self.ScanMode, "search_mode":self.SearchMode, "radius":self.radius, 
+                                             "azi_angle1":self.azi_1, "azi_angle2":self.azi_2, "target_position":self.TarInfo})
         self.output.write()
 
 class UAV:

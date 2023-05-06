@@ -6,6 +6,7 @@ from examples.waypoint.waypoint_autopilot import WaypointAutopilot
 from AI_F16.Code.Simulation.Conponents.Missile import Missile
 from AI_F16.Code.Simulation.Conponents.Battery import Battery
 from AI_F16.Code.Simulation.Conponents.Laser import Laser
+from AI_F16.Code.Simulation.Conponents.Radar import Radar
 from AI_F16.Code.Test.viewer_test import ScenarioViewer
 
 from numpy import deg2rad
@@ -44,11 +45,14 @@ def main():
     ### Missile Initial Conditions ###
     missile = Missile()
 
+    ### Radar Initial Conditions ###
+    radar = Radar()
+
     ### Run Simulation ###
     step = 0.05
     tmax = 5
     extended_states = True
-    res = run_f16_sim(init, tmax, ap, missile, laser, battery, step=step, extended_states=extended_states, integrator_str='euler')
+    res = run_f16_sim(init, tmax, ap, missile, laser, battery, radar, step=step, extended_states=extended_states, integrator_str='euler')
     
 
     ### Visualize ###
