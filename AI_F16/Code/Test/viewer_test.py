@@ -199,7 +199,7 @@ class ScenarioViewer:
             thermal_laser_text.set_text('Q = {:.2f} J'.format(sum(self.laser_thermal[:num])))
             v_missile_text.set_text('v_missile = {:.2f} m/s'.format(self.missile_velocity[num]))
 
-            return lines, markers, wedges,
+            return lines, markers, wedge_radar,
 
         # setting a title for the plot
         plt.grid()
