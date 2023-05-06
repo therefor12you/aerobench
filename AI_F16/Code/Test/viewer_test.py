@@ -151,8 +151,7 @@ class ScenarioViewer:
         y_data1 = []
         x_data2 = []
         y_data2 = []
-        x_data3 = []
-        y_data3 = []
+        
 
         # animation function
         def animate(num):
@@ -172,8 +171,8 @@ class ScenarioViewer:
             # 雷达波束扇形
             theta = np.linspace(self.radar_azi[num][0], self.radar_azi[num][1], 100)
             r = self.radar_radius[num]
-            x = np.append(x, r * np.cos(np.radians(theta)))
-            y = np.append(y, r * np.sin(np.radians(theta)))
+            x = np.append(x, r * np.cos(theta))
+            y = np.append(y, r * np.sin(theta))
             wedges[0], = ax.fill(x, y, color='b')
             
 
