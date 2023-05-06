@@ -40,7 +40,7 @@ class Radar:
         # 雷达扫描行数，偶数
         self.Hlines = 2
         # 雷达波束张角[°]
-        self.filed = radians(30)
+        self.filed = radians(10)
         
         # 雷达行扫描耗时
         self.azi_time = 2*self.AziRange/self.Vscan
@@ -121,7 +121,7 @@ class Radar:
         if (abs(self.Azi - (np.pi/2 - q_x)) <= self.filed or abs(self.Ele - (np.pi/2 - q_z)) <= self.filed) and dist[0] < self.max_detected_distance:
         # if  dist[0] < self.max_detected_distance:    
             # 生成一个随机数作为截获判断
-            if np.random.rand(1) > 1-self.prob:
+            # if np.random.rand(1) > 1-self.prob:
                 self.ScanMode = 1       # 锁定目标
                 # 雷达波束持续照射目标
                 # self.AxisPos = [dist[0]*sin(q_z)*cos(q_x), dist[0]*sin(q_z)*sin(q_x), dist[0]*cos(q_z)]
